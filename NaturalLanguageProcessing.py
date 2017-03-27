@@ -30,24 +30,11 @@ import os
 # NLP = NLP()
 # NLP.createDocumentVector("Dataset/", "documentsName.txt")
 ######################################################################################################
-######################################################################################################
-# Questa classe implementa le tecniche di natural language processing riassunte di seguito:
-# - rimozione della punteggiatura
-# - rimozione delle stop word
-# - creazione della bag of word
-# - creazione della matrice termini documenti
-# - normalizzazione dei caratteri
-# Questa classe fornisce anche le tecniche Tf-Idf ed LDA per la features selection
-# Esempio di utilizzo:
-# NLP = NLP()
-# NLP.createDocumentVector("Dataset/", "documentsName.txt")
-######################################################################################################
 class NLP:
 
 
 	###################################################################################################
 	# class destroyer
-	# distruttore di classe
 	def __del__(self):
 		if(self.verbose):
 			print "Distruzione dell'oggetto"
@@ -57,7 +44,6 @@ class NLP:
 
 	###################################################################################################
 	# class constructor
-	# costruttore di classe
 	def __init__(self, verbose):
 		self.stemmed_tokens = []
 		self.nFeatures = 0
@@ -73,8 +59,6 @@ class NLP:
 	###################################################################################################
 	# create a list of documents name and a list of content's document
 	# usage example: NLP.createDocumentVector("Dataset/", "documentsName.txt")
-	# crea una lisata con i nomi dei documenti
-	# esempio di utilizzo: NLP.createDocumentVector("Dataset/", "documentsName.txt")
 	def createDocumentVector(self, inputPath, outputFileName):
 		if (self.verbose):
 			print "createDocumentVector: creating the file with the documents name --------> OK"
@@ -101,8 +85,6 @@ class NLP:
 	###################################################################################################
 	# create automatically label
 	# usage example: NLP.createLabelNameForDocument("nomiEtichette.txt")
-	# crea le etichette in automatico
-	# esempio di utilizzo: NLP.createLabelNameForDocument("nomiEtichette.txt")
 	def createLabelNameForDocument(self, outputFileName):
 		if (self.verbose):
 			print "createLabelNameForDocument: writing the labels name --------> OK"
@@ -118,8 +100,6 @@ class NLP:
 	###################################################################################################
 	# clean documents removing useless words
 	# usage example: NLP.preprocessingDocument("stopWord.txt")
-	# rimuove le stopword
-	# esempio di utilizzo: NLP.preprocessingDocument("stopWord.txt")
 	def preprocessingDocuments(self, stopWordFile):
 		p_stemmer = PorterStemmer()
 		if (self.verbose):
@@ -145,8 +125,6 @@ class NLP:
 	###################################################################################################
 	# convert the created corpus into a document-term matrix
 	# usage example: NLP.getAsMatrix("documentTermMatrix.txt")
-	# converte una bag-of-word in una document-term matrix
-	# esempio di utilizzo: NLP.getAsMatrix("documentTermMatrix.txt")
 	def getAsMatrix(self, outputFileName):
 		if (self.verbose):
 			print "getAsMatrix: create the document-term matrix only with frequence --------> OK"
@@ -164,8 +142,6 @@ class NLP:
 	###################################################################################################
 	# create a file usefull to perform the feature selection
 	# usage example: NLP.printWord("matrixColumn.txt")
-	# crea un file utile per effettuare la features selection
-	# esempio di utilizzo: NLP.printWord("matrixColumn.txt")
 	def printWord(self, outputFileName):
 		if (self.verbose):
 			print "printWord: creating the column header file for R data frame --------> OK"
@@ -184,8 +160,6 @@ class NLP:
 	###################################################################################################
 	# create a corpus with Tf-Idf transformation
 	# usage example: NLP.tfIdfModel()
-	# crea un corpus con il Tf-Idf
-	# esempio di utilizzo: NLP.tfIdfModel()
 	def tfIdfModel(self):
 		if (self.verbose):
 			print "tfIdfModel: creating the tf-idf model --------> OK"
@@ -197,8 +171,6 @@ class NLP:
 	###################################################################################################
 	# convert the Tf-Idf created corpus into a document-term matrix
 	# usage example: NLP.getAsTfIdfMatrix("documentTermMatrix.txt")
-	# converte il corpus creato con Tf-Idf in una document-term matrix
-	# esempio di utilizzo: NLP.getAsTfIdfMatrix("documentTermMatrix.txt")
 	def getAsTfIdfMatrix(self, outputFileName):
 		if (self.verbose):
 			print "getAsTfIdfMatrix: creating the tf-idf matrix --------> OK"
@@ -216,8 +188,6 @@ class NLP:
 	###################################################################################################
 	# perform the LDA method to extract topics from document corpus
 	# usage example: NLP.ldaModel(7, 7)
-	# esegue il metodo LDA per estrearre i topic dal corpus di documenti
-	# esempio di utilizzo: NLP.ldaModel(7, 7)
 	def ldaModel(self, nTopics, nWords):
 		if (self.verbose):
 			print "ldaModel: Creating the lda model --------> OK"
@@ -230,9 +200,6 @@ class NLP:
 	# print the word extracted from topics
 	# usage example: NLP.onlyPrintWords("LDAword.txt")
 	# note: the producted file is used by "createBagOfWord()" method for LDA-feature-selection
-	# stampa le parole estratte dai topics
-	# esempio di utilizzo: NLP.onlyPrintWords("LDAword.txt")
-	# nota: il file prodotto viene utilizzato dal metodo "createBagOfWord()" per la features selection mediante LDA
 	def onlyPrintWords(self, outputFileName):
 		appListOne 		= []
 		appListTwo 		= []
@@ -262,8 +229,6 @@ class NLP:
 	##################################################################################################
 	# create a bow used to select the word
 	# usage example: NLP.createBagOfWord("LDAword.txt")
-	# crea una bow usata per selezionare le parole
-	# esempio di utilizzo: NLP.createBagOfWord("LDAword.txt")
 	def createBagOfWord(self, inputFileName):
 		self.texts = []
 		p_stemmer = PorterStemmer()
@@ -296,8 +261,6 @@ class NLP:
 	###################################################################################################
 	# create the dictionary used into corpus object (needed for Gensim representation)
 	# usage example: NLP.createDictionary()
-	# crea il dizionario usato nell'oggetto corpus (necessario per la rappresentazione in stile Gensim)
-	# esempio di utilizzo: NLP.createDictionary()
 	def createDictionary(self):
 		if (self.verbose):
 			print "createDictionary: creating the dictionary for Gensim represenation --------> OK"
@@ -308,8 +271,6 @@ class NLP:
 	###################################################################################################
 	# create a corpus object (needed for Gensim representation)
 	# usage example: NLP.createCorpus()
-	# crea l'oggetto corpus (necessario per la rappresentazione in stile Gensim)
-	# esempio di utilizzo: NLP.createCorpus()
 	def createCorpus(self):
 		if (self.verbose):
 			print "createCorpus: creating the corpus for Gensim represenation --------> OK"
